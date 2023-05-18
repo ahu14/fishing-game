@@ -1,5 +1,4 @@
- import {useEffect, useRef, useState} from "react";
-import "./index.css";
+import {useEffect, useRef, useState} from "react";
 
 
 let Fish = () => {

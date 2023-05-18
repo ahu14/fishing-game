@@ -3,14 +3,16 @@ const path = require('path');
 
 
 module.exports = {
-    entry: "./src/index.js",
+    entry: './src/index.js',
     output: {
-        path: path.resolve(__dirname, '/docs'),
+        path: path.resolve(__dirname, 'docs'),
         filename: 'index.js'
     },
-    devServer: {
-        port: 3030
-    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: path.join(__dirname, "./src/index.html")
+        }),
+    ],
     module: {
         rules: [
         {
@@ -25,9 +27,10 @@ module.exports = {
             use: ["style-loader", "css-loader"],
         }]
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: path.join(__dirname, "./src/index.html")
-        }),
-    ],
+    resolve: {
+        extensions: ['.js', '.jsx'],
+    },
+    devServer: {
+        port: 3030
+    },
 }
