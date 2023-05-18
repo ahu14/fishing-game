@@ -1,4 +1,6 @@
  import {useEffect, useRef, useState} from "react";
+import "./index.css";
+
 
 let Fish = () => {
     let [score, setScore] = useState(0);
