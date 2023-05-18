@@ -1,15 +1,17 @@
-const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 
 module.exports = {
+    entry: path.resolve(__dirname, "src", "index.js"),
     output: {
-        path: path.join(__dirname, '/docs'),
-        filename: 'index.js',
+        path: path.resolve(__dirname, '/docs'),
+        filename: 'bundle.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "src/index.html",
+            template: path.resolve(__dirname, "src", "index.html"),
+            filename: 'index.html'
         }),
     ],
     devServer: {
@@ -19,18 +21,14 @@ module.exports = {
         rules: [
         {
             test: /\.(js|jsx)$/,
+            exclude: /node_modules/,
             use: {
                 loader: "babel-loader",
             },
         },
         {
-            test: /\.(sa|sc|c)ss$/, 
-            use: ["style-loader", "css-loader", "sass-loader"],
-        },
-        {
-            test: /\.(png|woff|woff2|eot|ttf|svg)$/, 
-            loader: "url-loader",
-            options: { limit: false },
+            test: /\.css$/i, 
+            use: ["style-loader", "css-loader"],
         },
         ]
     }

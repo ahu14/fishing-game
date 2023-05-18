@@ -1,52 +1,99 @@
-import {useEffect, useRef, useState} from "react";
+ import {useEffect, useRef, useState} from "react";
 
-let summonFish = (body, data, setData, fish, setFish) => {
-    let fishes = [];
-    let randomNum = (num) => Math.floor(Math.random() * (num - 40));
+let Fish = () => {
+    let [score, setScore] = useState(0);
+    let [data, setData] = useState([]);
+    let [lastClick, setLastClick] = useState();
+
+    let randomNum = (num, length) => Math.floor(Math.random() * (num - length));
 
     let clicked = (event) => {
-        setData(prev => prev.filter(d => d.key != event.target.id));
-        setFish(fish += 1);
+        if (lastClick != event.target && lastClick != undefined){
+            setData(prev => {
+                for (let i = 0; i < prev.length; i++){
+                    prev[i].life = 3;
+                }
+
+                data = prev;
+                return data;
+            })
+
+            setLastClick(lastClick = event.target);
+        }  
+        
+        else{
+            setLastClick(lastClick = event.target);
+        }
+        
+
 
         let msg = document.querySelector('.side-msg');
-        msg.style.display = 'flex';
-        msg.innerHTML = "Fish +1";
 
-        setTimeout(() => msg.style.display = 'none', 300);
+        setData(prev => prev.filter(d => {
+            if (d.template.key == event.target.id){
+                if (d.life > 1){
+                    d.life -= 1 ;
+                }
+
+                else{
+                    setData(prev => prev.filter(d2 => d2.life > 1));
+                    setLastClick(lastClick = undefined);
+                    setScore(score => score += 1);
+
+                    msg.style.display = 'flex';
+                }
+            }
+
+            data = prev;
+            return data;
+        }));
+
+        setTimeout(() => msg.style.display = 'none', 500);
     }
 
-    for (let i = 0; i < 3; i++){
-        fishes.push(
-            <div className="fish" key={'fish-' + i} id={'fish-' + i}
-            style={{top : randomNum(window.innerHeight) + 'px',
-            left: randomNum(window.innerWidth) + 'px'}}
-            onClick={clicked}></div>
-        );
+    if (data.length == 0){
+        let randomFish = Math.floor(Math.random() * 7 + 1);
+
+        for (let i = 0; i < randomFish; i++){
+            setData(prev => prev.concat(...[
+                {
+                    template: <div className="fish" key={'fish-' + i} id={'fish-' + i}
+                    style={{top : randomNum(window.innerHeight, 10) + 'px',
+                    left: randomNum(window.innerWidth, 30) + 'px'}} onClick={clicked}></div>,
+                    life: 3
+                }
+            ]));
+        }
     }
 
-    return fishes;
+    return (
+        <>
+            <h3 id="word">Fish Caught : {score}</h3>
+            {data.map(d => d.template)}
+        </>
+    )
 }
 
 
 let App = () => {
-    let body = useRef();
-    let [data, setData] = useState([]);
-    let [fish, setFish] = useState(0);
-
     useEffect(() => {
-        if (data.length < 1){
-            setData(data = summonFish(
-                body.current, data, setData, fish, setFish
-            ));
-        }
-    }, [data]);
-
+        let image = document.querySelector('.image');
+        
+        document.addEventListener('mousemove', (e) => {
+            image.style.top = (e.pageY - 27) + 'px';
+            image.style.left = (e.pageX - 120) + 'px';
+        })
+    }, []);
 
     return (
-        <div ref={body}>
-            <h3 id="word">Fish Caught : {fish}</h3>
-            <div className="side-msg"></div>
-            {data}
+        <div>
+            <div className="side-msg">
+                <div className="fish"></div>
+                <div id="word-msg">+1</div>
+            </div>
+            
+            <div className="image"></div>
+            <Fish />
         </div>
     )
 }
