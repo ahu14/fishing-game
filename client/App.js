@@ -1,8 +1,10 @@
-import {useEffect, useRef, useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
+import { Routes, Route, Outlet } from "react-router-dom";
+//import handleSubmit from "./firebase/testdb";
 
 
-let App = () => {
+let Fish = () => {
     let [template, setTemplate] = useState([]);
     let data = useSelector(state => state.data);
     let score = useSelector(state => state.score);
@@ -38,6 +40,33 @@ let App = () => {
             {template.map(tem => tem.template)}
         </div>
     )
+}
+
+let Home = () => {
+    let submitted = () => {
+        console.log('yeshh');
+    }
+
+    return (
+        <form className="form-box" onSubmit={submitted}>
+            <label htmlFor="name">Name :</label>
+            <input id="name" />
+            <button type="submit">Submit</button>
+        </form>
+    )
+}
+
+let App = () => {
+    return (
+        <div>
+            <Routes>
+                <Route path="/" element={<Outlet />}>
+                    <Route index element={<Home />} />
+                    <Route path="fish" element={<Fish />} />
+                </Route>
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
