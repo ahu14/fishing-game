@@ -41,19 +41,24 @@ let reducer = (state = initialState, action) => {
                 score: state.score, 
                 data: state.data,
                 lastClick: state.lastClick
-            };
+            }
 
 
         case 'summonFish':
             if (state.data.length == 0){
-                let randomNum = (num, length) => Math.floor(Math.random() * (num - length));
+                let randomNum = (num, minimum = 0, length) => {
+                    let random = Math.floor(Math.random() * (num - length))
+                    return random < minimum ? random + minimum : random;
+                };
+
+                let minHeight = window.innerHeight / 100 * 8;
                 let random = Math.floor(Math.random() * 7 + 1);
 
                 for (let i = 0; i < random; i++){
                     state.data.push({
                         template: <div className="fish" key={'fish-' + i} id={'fish-' + i}
-                        style={{top : randomNum(window.innerHeight, 10) + 'px',
-                        left: randomNum(window.innerWidth, 30) + 'px'}}></div>,
+                        style={{top : randomNum(window.innerHeight, minHeight, 10) + 'px',
+                        left: randomNum(window.innerWidth, 0, 30) + 'px'}}></div>,
                         life: 3
                     })
                 }
