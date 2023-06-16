@@ -1,11 +1,30 @@
 let initialState = {
     score: 0,
     data: [],
-    lastClick: ''
+    lastClick: '',
+    time: 0,
+    randTime: null,
+    hurricane: false,
 }
 
 let reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'addTime':
+            return {...state, time: state.time += 1 };
+
+        case 'randTime':
+            return {
+                ...state,
+                randTime: state.randTime == null ? 10 : state.randTime += 10
+            }
+
+        case 'hurricaneStatus':
+            return {
+                ...state, 
+                hurricane: state.hurricane == false ? true : false
+            }
+
+
         case 'checkClicked':
             if (state.lastClick == ''){
                 state.lastClick = event.target;
@@ -38,6 +57,7 @@ let reducer = (state = initialState, action) => {
             }
 
             return {
+                ...state,
                 score: state.score, 
                 data: state.data,
                 lastClick: state.lastClick
@@ -65,7 +85,6 @@ let reducer = (state = initialState, action) => {
 
                 return {...state, data: state.data};
             }
-
     
         default:
             return state;
