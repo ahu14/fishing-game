@@ -10,7 +10,7 @@ app.use(express.static(DOCS_DIR));
 app.get('/', (req, res) => {
     res.sendFile(HTML_FILE);
 });
-app.get('/fish', (req, res) => {
+app.get('/new', (req, res) => {
     res.sendFile(HTML_FILE);
 });
 

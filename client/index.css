@@ -85,14 +85,32 @@ body{
     margin: 0 auto;
 
     padding: 1vh 2vw;
+    font-size: 16px;
+}
+
+
+
+.middle-section{
+    width: 100vw;
+    height: 94vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.msg-game-over-box{
+    width: 40vw;
+    height: 50vh;
+
+    display: none;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .btn-game-over{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
     padding: 1vh 2vw;
-    background: #356fb9;
+    font-size: 16px;
 }

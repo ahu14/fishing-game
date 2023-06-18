@@ -7,6 +7,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 let Fish = () => {
     let [template, setTemplate] = useState([]);
     let [animate, setAnimate] = useState();
+    let [checkBorder, setCheckBorder] = useState();
 
     let btn = useRef();
     let image = useRef();
@@ -26,36 +27,7 @@ let Fish = () => {
             dispatch({type: 'checkClicked'});
         })
 
-        let checkBorder = () => {
-            let left = parseInt(image.current.style.left);
-            console.log(left < -120 || left > (window.innerWidth - 120));
-
-            if (left < -120 || left > (window.innerWidth - 120)){
-                for (let i of mainBox.current.children){
-                    mainBox.current.removeChild(i);
-                }
-
-                setAnimate(animate = clearInterval(animate));
-
-                let h2 = document.createElement('h2');
-                h2.innerHTML = 'You Lose !';
-
-                let button = document.createElement('div');
-                button.style.background = button.style.background == "#356fb9" 
-                    ? "#7bb5ff"
-                    : "#356fb9"
-                button.className = 'btn-game-over';
-                button.innerHTML = 'Click to play again';
-                button.onClick = "() => window.location.reload()";
-
-                mainBox.current.appendChild(h2);
-                mainBox.current.appendChild(button);
-            }
-        }
-
         setInterval(() => dispatch({type: 'addTime'}), 1000);
-        setInterval(() => checkBorder(), 100);
-
         dispatch({type: 'randTime'});
     }, []);
 
@@ -71,29 +43,32 @@ let Fish = () => {
             dispatch({type: 'randTime'});
             dispatch({type: 'hurricaneStatus'});
         }
-    }, [time]);
+    }, [time, checkBorder]);
 
 
     useEffect(() => {
         let youCanMove = (e) => {
-            let minHeight = window.innerHeight / 100 * 8;
-            let yPos = e.pageY < minHeight ? minHeight : e.pageY;
-            image.current.style.top = (yPos - 27) + 'px';
-            image.current.style.left = (e.pageX - 120) + 'px';
+            if (image.current != null){
+                let minHeight = window.innerHeight / 100 * 8;
+                let yPos = e.pageY < minHeight ? minHeight : e.pageY;
+                image.current.style.top = (yPos - 27) + 'px';
+                image.current.style.left = (e.pageX - 120) + 'px';
+            }
         }
 
         let startInterval = () => {
             return setInterval(() => {
-                let left = parseInt(image.current.style.left);
-                left = left > -150 ? left -= 4 : left;
-                image.current.style.left = left + 'px';
+                if (image.current != null){
+                    let left = parseInt(image.current.style.left);
+                    left = left > -150 ? left -= 4 : left;
+                    image.current.style.left = left + 'px';
+                }
             }, 100)
         }
 
         let stopInterval = () => clearInterval(animate);
 
-
-        if (hurricane == true){
+        if (hurricane == true && hurricane != null){
             document.body.style.background = '#356fb9';
             document.onmousemove = () => {}
 
@@ -111,10 +86,25 @@ let Fish = () => {
     }, [hurricane]);
 
 
+    useEffect(() => {
+        let left = parseInt(image.current.style.left);
+
+        if (left < -120 || left > (window.innerWidth - 120)){
+            image.current.style.left = left + 'px';
+            document.onmousemove = () => {}
+
+            dispatch({type: 'gameOver'});
+            document.querySelector('.msg-game-over-box').style.display = "flex";
+        }
+    }, [time]);
+
+
     let clicked = () => {
         let left = parseInt(image.current.style.left) + 10;
         image.current.style.left = left + 'px';
     }
+
+    let refresh = () => window.location.reload();
 
     return (
         <div ref={mainBox}>
@@ -137,36 +127,33 @@ let Fish = () => {
                 {template.map(tem => tem.template)}
 
                 <button className="btn" ref={btn} onClick={clicked}>Click !!</button>
+
+                <div className="msg-game-over-box">
+                    <h2 id="msg-game-over">You Lose !</h2>
+                    <p id="score">Fish caught : {score}</p>
+                    <button className="btn-game-over" 
+                    onClick={refresh}>Click to play again</button>
+                </div>
             </div>
         </div>
     )
 }
 
-/*let Login = () => {
-    let submitted = () => {
-        console.log('yeshh');
-    }
+let NextUpdate = () => {
+    return <p>Next update someday...</p>
+}
 
-    return (
-        <form className="form-box" onSubmit={submitted}>
-            <label htmlFor="name">Name :</label>
-            <input id="name" />
-            <button type="submit">Submit</button>
-        </form>
-    )
-}*/
-
-/*let App = () => {
+let App = () => {
     return (
         <div>
             <Routes>
                 <Route path="/" element={<Outlet />}>
                     <Route index element={<Fish />} />
-                    <Route path="login" element={<Login />} />
+                    <Route path="new" element={<NextUpdate />} />
                 </Route>
             </Routes>
         </div>
     );
-}*/
+}
 
-export default Fish;
+export default App;

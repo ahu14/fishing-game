@@ -5,6 +5,7 @@ let initialState = {
     time: 0,
     randTime: null,
     hurricane: false,
+    lose: false
 }
 
 let reducer = (state = initialState, action) => {
@@ -23,6 +24,10 @@ let reducer = (state = initialState, action) => {
                 ...state, 
                 hurricane: state.hurricane == false ? true : false
             }
+
+        case 'gameOver':
+            return {...state, hurricane: null, time: null, randTime: null, lose: true}
+
 
 
         case 'checkClicked':
