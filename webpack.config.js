@@ -1,12 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const { webpack } = require('webpack');
 
 
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'docs'),
-        filename: 'index.js'
+        filename: 'index.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -31,6 +32,9 @@ module.exports = {
         extensions: ['.js', '.jsx'],
     },
     devServer: {
-        port: 3030
+        hot: true,
+        contentBase: './docs',
+        port: 3030,
+        historyApiFallback: true
     },
 }
