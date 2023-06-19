@@ -4,14 +4,14 @@ const { webpack } = require('webpack');
 
 
 module.exports = {
-    entry: './client/index.js',
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'docs'),
-        filename: 'index.js'
+        filename: 'index.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.join(__dirname, "./client/index.html")
+            template: path.join(__dirname, "./src/index.html")
         }),
     ],
     module: {
