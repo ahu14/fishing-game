@@ -4,7 +4,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 
 
 
-let Fish = () => {
+export default function Fish(){
     let [template, setTemplate] = useState([]);
     let [animate, setAnimate] = useState();
     let [checkBorder, setCheckBorder] = useState();
@@ -138,22 +138,3 @@ let Fish = () => {
         </div>
     )
 }
-
-let NextUpdate = () => {
-    return <p>Next update someday...</p>
-}
-
-let App = () => {
-    return (
-        <div>
-            <Routes>
-                <Route path="/" element={<Outlet />}>
-                    <Route index element={<Fish />} />
-                    <Route path="new" element={<NextUpdate />} />
-                </Route>
-            </Routes>
-        </div>
-    );
-}
-
-export default App;
