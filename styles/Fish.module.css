@@ -1,0 +1,142 @@
+.body{
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+
+    background: #7bb5ff;
+}
+
+
+.playerStatus{
+    width: 100vw;
+    height: 6vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    background: #ddd;
+}
+
+
+.fish, .enemyFish{
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: url(../public/fish.png);
+    background-size: contain;
+    cursor: pointer;
+}
+
+.enemyFish{
+    background: url(../public/fierce-fish.png);
+    background-size: contain;
+}
+
+.image{
+    position: absolute;
+    z-index: 100;
+
+    width: 120px;
+    height: 60px;
+    background-image: url(../public/fisherman.svg);
+}
+
+
+
+.sideMsg{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    
+    position: absolute;
+    top: 8vh;
+    right: 0;
+
+    width: 100px;
+    height: 50px;
+    background: #ddd;
+}
+
+.sideMsg .fish{
+    left: 20px;
+}
+
+#wordMsg{
+    position: absolute;
+    right: 23px;
+}
+
+.btn, .startBtn{
+    display: none;
+    align-items: center;
+
+    position: fixed;
+    left: 50%;
+    bottom: 5vh;
+    transform: translate(-50%, -50%);
+    margin: 0 auto;
+    
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 4px;
+    transition: 0.3s ease;
+
+    padding: 1vh 2vw;
+}
+
+.btn{
+    background: #7bb5ff;
+}
+
+.btn:hover{
+    background: #b0d3ff;
+}
+
+
+.startBtn{
+    display: flex;    
+    border: 2px solid #477cbf;
+}
+
+.startBtn:hover{
+    background: #477cbf;
+    color: #fefefe;
+}
+
+
+
+.middleSection{
+    width: 100vw;
+    height: 94vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.msgGameOverBox{
+    width: 40vw;
+    height: 40vh;
+
+    background: #ddd;
+    border-radius: 4px;
+
+    display: none;
+    text-align: center;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+
+#randTime{
+    font-weight: 700;
+}
+
+.btnGameOver{
+    padding: 1vh 2vw;
+    font-size: 16px;
+    font-weight: 500;
+    background: #bbb;
+    border-radius: 4px;
+}
