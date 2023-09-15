@@ -49,7 +49,7 @@ export default function Fish(){
     useEffect(() => {
         let youCanMove = (e:any) => {
             if (image.current != null){
-                let minHeight = window.innerHeight / 100 * 8;
+                let minHeight = window.innerHeight / 100 * 8.5;
                 let yPos = e.pageY < minHeight ? minHeight : e.pageY;
                 image.current.style.top = (yPos - 27) + 'px';
                 image.current.style.left = (e.pageX - 120) + 'px';
@@ -130,8 +130,8 @@ export default function Fish(){
             <div className={styles.topSection}>
                 <div className={styles.playerStatus}>
                     <h3 id={styles.word}>Fish caught: {score}</h3>
-                    <h3 id={styles.randTime}>{parseInt(`${randTime - time}`)}s again when the 
-                    storm {hurricane == false ? "comes" : "end"}</h3>
+                    <h3><span id={styles.randTime}>{parseInt(`${randTime - time}`)}s</span> again 
+                    when the storm {hurricane == false ? "comes" : "end"}</h3>
                 </div>
             </div>
 
@@ -151,7 +151,7 @@ export default function Fish(){
                 <button className={styles.btn} ref={btn} onClick={clicked}>Click !!</button>
 
                 <div className={styles.msgGameOverBox} id="msg-game-over-box">
-                    <h2 id={styles.msgGameOver}>You Lose !</h2>
+                    <h1 id={styles.msgGameOver}>You Lose !</h1>
                     <p id={styles.score}>Fish caught : {score}</p>
                     <button className={styles.btnGameOver} 
                     onClick={refresh}>Click to play again</button>

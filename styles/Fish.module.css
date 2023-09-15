@@ -56,6 +56,7 @@
     width: 100px;
     height: 50px;
     background: #ddd;
+    border-radius: 4px 0 0 4px;
 }
 
 .sideMsg .fish{
@@ -95,8 +96,14 @@
 
 
 .startBtn{
-    display: flex;    
+    display: flex;
+    position: absolute;
+    bottom: 25%;
+
+    padding: 10px 20px;
+    font-weight: 500;
     border: 2px solid #477cbf;
+    transition: 0.2s ease;
 }
 
 .startBtn:hover{
@@ -133,10 +140,31 @@
     font-weight: 700;
 }
 
+
+#msgGameOver{
+    font-weight: 700;
+    font-size: 23px;
+}
+
 .btnGameOver{
     padding: 1vh 2vw;
     font-size: 16px;
     font-weight: 500;
     background: #bbb;
     border-radius: 4px;
+}
+
+.btnGameOver:hover{
+    background: #aaa;
+}
+
+
+@media screen and (max-width: 425px) {
+    .playerStatus{
+        font-size: 14px;
+    }
+
+    .msgGameOverBox{
+        width: 70vw;
+    }
 }

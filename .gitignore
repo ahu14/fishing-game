@@ -2,4 +2,3 @@
 /.env
 /node_modules
 /.babelrc
-/src/firebase

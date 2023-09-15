@@ -8,7 +8,7 @@ export default function Home(){
     <>
       <div className="w-100 h-screen flex align-center justify-center bg-[#7bb5ff]">
         <div className="w-[80%] h-screen grid grid-rows-4 items-center justify-center">
-          <div id={styles.title}>YOUR FISHING GAME</div>
+          <div id={styles.title} className="grid self-end">YOUR FISHING GAME</div>
 
           <Link href="/play">
             <div className="text-center py-2 px-4 bg-slate-200

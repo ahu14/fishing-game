@@ -1,9 +1,9 @@
 import styles from "@/styles/Fish.module.css";
-import { data } from "autoprefixer";
 
 let initialState = {
     score: 0,
     data: [],
+    copyData: null,
     lastClick: '',
     time: 0,
     randTime: null,
@@ -69,6 +69,12 @@ let reducer = (state = initialState, action) => {
                 }
 
                 else{
+                    for (let i = 0; i < state.copyData.length; i++){
+                        if (state.data[i] != undefined){
+                            state.data[i].life = state.copyData[i].life;
+                        }
+                    }
+
                     state.lastClick = event.target.id;
                 }
             }
@@ -101,7 +107,8 @@ let reducer = (state = initialState, action) => {
                     })
                 }
 
-                return {...state, data: state.data};
+                state.copyData = JSON.parse(JSON.stringify(state.data));
+                return {...state, data: state.data, copyData: state.copyData};
             }
     
         default:
