@@ -30,6 +30,8 @@ export default function Home(){
 
       <div className={homestyles.enemyFish} style={{top : '45vh',
       left: '25vw', width: '8vw', height: '8vw'}}></div>
+
+      <div className={styles.seaweed}></div>
     </>
   )
 }
