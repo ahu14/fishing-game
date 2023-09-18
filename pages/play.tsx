@@ -93,7 +93,7 @@ export default function Fish(){
     useEffect(() => {
         let left = parseInt(image.current.style.left);
 
-        if (left < -120 || left > (window.innerWidth - 120)){
+        if (left < -120 || left >= (window.innerWidth - 120)){
             image.current.style.left = left + 'px';
             document.onmousemove = () => {}
 

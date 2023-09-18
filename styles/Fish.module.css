@@ -31,6 +31,7 @@
 .enemyFish{
     background: url(../public/fierce-fish.png);
     background-size: contain;
+    overflow: hidden;
 }
 
 .image{
